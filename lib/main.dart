@@ -7,10 +7,13 @@ import 'dart:async';
 import 'features/show_todo/data/datasources/todo_data_source.dart';
 import 'features/show_todo/domain/usecases/create_todo.dart';
 import 'features/show_todo/presentation/bloc/todo_bloc.dart';
+import './single_app_variable.dart' as singelvariable;
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  singelvariable.init();
   runApp(const MyApp());
 }
 

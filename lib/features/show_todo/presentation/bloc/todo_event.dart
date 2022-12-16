@@ -13,13 +13,13 @@ class GetListTodoEnvent extends TodoEvent {
 }
 
 class AddListTodo extends TodoEvent {
-  final Todo todo;
+  final String title;
 
-  const AddListTodo({required this.todo});
+  const AddListTodo({required this.title});
 
   @override
   // TODO: implement props
-  List<Object?> get props => [todo];
+  List<Object?> get props => [title];
 }
 
 class DeleteTodo extends TodoEvent {

@@ -19,9 +19,9 @@ class TodoRepositoryImpl implements TodoRepository {
   }
 
   @override
-  Future<Either<Failure, Todo>> createTodo(TodoModel todo) async {
+  Future<Either<Failure, Todo>> createTodo(Todo todo) async {
     try {
-      await todoDataSourceImpl.createTodo(todo);
+      await todoDataSourceImpl.createTodo(TodoModel(id: todo.id, title: todo.title, isDone: todo.isDone));
       return Right(todo);
     } catch (e) {
       return Left(ServerFailure());
