@@ -1,0 +1,1 @@
+const String serverFailureMessage = 'Erreur du serveur';
