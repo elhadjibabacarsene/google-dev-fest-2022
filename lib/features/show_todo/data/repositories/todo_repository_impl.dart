@@ -8,7 +8,6 @@ import 'package:google_dev_fest/features/show_todo/domain/repositories/todo_repo
 import '../models/todo_model.dart';
 
 class TodoRepositoryImpl implements TodoRepository {
-  //final TodoDataSource todoDataSource;
   final TodoDataSourceImpl todoDataSourceImpl;
   TodoRepositoryImpl({required this.todoDataSourceImpl});
 
@@ -19,11 +18,11 @@ class TodoRepositoryImpl implements TodoRepository {
   }
 
   @override
-  Future<Either<Failure, Todo>> createTodo(Todo todo) async {
+  Future<Either<Failure, int>> createTodo(Todo todo) async {
     try {
-      await todoDataSourceImpl.createTodo(TodoModel(id: todo.id, title: todo.title, isDone: todo.isDone));
-      return Right(todo);
-    } catch (e) {
+      final int statusCode = await todoDataSourceImpl.createTodo(TodoModel(id: todo.id, title: todo.title, isDone: todo.isDone));
+      return Right(statusCode);
+    } on ServerException {
       return Left(ServerFailure());
     }
   }
@@ -37,7 +36,7 @@ class TodoRepositoryImpl implements TodoRepository {
   @override
   Future<Either<Failure, List<Todo>>> getListTodo() async {
     try {
-      final List<TodoModel> listTodo = await todoDataSourceImpl.getListTodo();
+      final List<Todo> listTodo = await todoDataSourceImpl.getListTodo();
       return Right(listTodo);
     } on ServerException {
       return Left(ServerFailure());

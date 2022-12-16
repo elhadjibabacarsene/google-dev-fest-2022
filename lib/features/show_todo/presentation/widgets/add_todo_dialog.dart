@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../../single_app_variable.dart';
+import '../bloc/todo_bloc.dart';
+
 class AddTodoDialog extends StatefulWidget {
   const AddTodoDialog({Key? key}) : super(key: key);
 
@@ -28,6 +31,7 @@ class _AddTodoDialogState extends State<AddTodoDialog> {
         TextButton(
           child: const Text('AJOUTER'),
           onPressed: () {
+            sl<TodoBloc>().add(AddTodo(title: _textFieldController.text));
             Navigator.of(context).pop();
             // _addTodoItem(_textFieldController.text);
           },

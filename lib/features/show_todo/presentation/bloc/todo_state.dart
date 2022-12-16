@@ -16,6 +16,22 @@ class TodoLoading extends TodoState {}
 
 class TodoDeleted extends TodoState {}
 
-class TodoAdding extends TodoState {}
+class TodoAdded extends TodoState {}
 
-class ListLoad extends TodoState {}
+class TodoError extends TodoState {
+  final String errorMessage;
+
+  const TodoError({required this.errorMessage});
+
+  @override
+  List<Object> get props => [errorMessage];
+}
+
+class ListLoad extends TodoState {
+  final List<Todo> listTodo;
+
+  const ListLoad({required this.listTodo});
+
+  @override
+  List<Object> get props => [listTodo];
+}
