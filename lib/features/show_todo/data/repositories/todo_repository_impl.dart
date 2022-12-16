@@ -42,4 +42,14 @@ class TodoRepositoryImpl implements TodoRepository {
       return Left(ServerFailure());
     }
   }
+  
+  @override
+  Future<Either<Failure, void>> makeDone(String id) async {
+    try {
+      await todoDataSourceImpl.makeDone(id);
+      return const Right(null);
+    } on ServerException{
+      return Left(ServerFailure());
+    }
+  }
 }

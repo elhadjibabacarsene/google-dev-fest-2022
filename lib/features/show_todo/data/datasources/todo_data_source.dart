@@ -9,6 +9,8 @@ import '../../domain/entities/todo.dart';
 abstract class TodoDataSource {
   Future<List<Todo>> getListTodo();
   Future<int> createTodo(TodoModel todo);
+  Future<void> makeDone(String id);
+
 }
 
 class TodoDataSourceImpl implements TodoDataSource {
@@ -41,4 +43,15 @@ class TodoDataSourceImpl implements TodoDataSource {
       throw ServerException();
     }
   }
+  
+  @override
+  Future<void> makeDone(String id) async{
+    try {
+      firebaseDB.dbRef.child('Todos').child(id).update({'isDone': true});
+    } catch (e) {
+       throw ServerException();
+    }
+  }
+
+
 }

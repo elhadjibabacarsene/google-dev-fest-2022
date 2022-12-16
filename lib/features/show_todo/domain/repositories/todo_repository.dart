@@ -7,4 +7,5 @@ import '../entities/todo.dart';
 abstract class TodoRepository {
   Future<Either<Failure, List<Todo>>> getListTodo(); // return todoList
   Future<Either<Failure, int>> createTodo(TodoModel todo);
+  Future<Either<Failure, void>> makeDone(String id);
 }
