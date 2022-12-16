@@ -9,6 +9,7 @@ import '../../domain/entities/todo.dart';
 abstract class TodoDataSource {
   Future<List<Todo>> getListTodo();
   Future<int> createTodo(TodoModel todo);
+  Future<void> changeStatus(TodoModel todo);
   // Future<Either<Failure, String>> deleteTodo(String id);
   //Future<Either<Failure, String>> changeStatusTodo(String id);
 }
@@ -39,6 +40,15 @@ class TodoDataSourceImpl implements TodoDataSource {
         todoList.add(TodoModel.fromJson(json));
       });
       return todoList;
+    } catch (e) {
+      throw ServerException();
+    }
+  }
+  
+  @override
+  Future<void> changeStatus(TodoModel todo) async{
+    try {
+      await firebaseDB.dbRef.child('Todos').child(todo.id!).update({"isDone": true});
     } catch (e) {
       throw ServerException();
     }

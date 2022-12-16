@@ -11,8 +11,7 @@ import '../../data/repositories/todo_repository_impl.dart';
 class CreateTodo implements UseCases<int, Params> {
   @override
   Future<Either<Failure, int>> call(Params params) async {
-    final TodoRepositoryImpl todoRepository =
-        sl<TodoRepositoryImpl>();
+    final TodoRepositoryImpl todoRepository = sl<TodoRepositoryImpl>();
     return await todoRepository.createTodo(params.todo);
   }
 }

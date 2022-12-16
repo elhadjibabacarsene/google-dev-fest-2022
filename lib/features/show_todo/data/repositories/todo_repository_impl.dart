@@ -42,4 +42,14 @@ class TodoRepositoryImpl implements TodoRepository {
       return Left(ServerFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, void>> changeStatus(Todo todo) async {
+    try {
+      todoDataSourceImpl.changeStatus(TodoModel(id: todo.id, title: todo.title, isDone: todo.isDone));
+      return const Right(null);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
 }
