@@ -1,11 +1,20 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_dev_fest/core/firebase_helper/firebase_db.dart';
+import 'package:google_dev_fest/features/show_todo/data/models/todo_model.dart';
+import 'dart:async';
+import 'features/show_todo/data/datasources/todo_data_source.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
-
+// options: const FirebaseOptions(
+//           apiKey: "AIzaSyAm-zd9HT0QD-_mNm04c4h22bRV4hu9C-0",
+//           appId: "com.example.googleDevFest",
+//           messagingSenderId: "744011737025",
+//           projectId: "dev-fest-83f72")
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -51,6 +60,18 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  final todoDataSourceImpl = TodoDataSourceImpl(firebaseDB: FirebaseDB());
+
+  @override
+  void initState() {
+    //testFireBase();
+    super.initState();
+  }
+
+  testFireBase() async {
+    await todoDataSourceImpl.createTodo(TodoModel(id: "", title: "ABD", isDone: false));
+    await todoDataSourceImpl.getListTodo();
+  }
 
   void _incrementCounter() {
     setState(() {
