@@ -4,8 +4,8 @@ abstract class TodoEvent extends Equatable {
   const TodoEvent();
 }
 
-class GetListTodo extends TodoEvent {
-  const GetListTodo();
+class GetListTodoEnvent extends TodoEvent {
+  const GetListTodoEnvent();
 
   @override
   // TODO: implement props

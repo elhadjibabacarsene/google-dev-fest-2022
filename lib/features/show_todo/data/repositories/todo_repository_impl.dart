@@ -5,7 +5,6 @@ import 'package:google_dev_fest/core/firebase_helper/firebase_db.dart';
 import 'package:google_dev_fest/features/show_todo/data/datasources/todo_data_source.dart';
 import 'package:google_dev_fest/features/show_todo/domain/entities/todo.dart';
 import 'package:google_dev_fest/features/show_todo/domain/repositories/todo_repository.dart';
-
 import '../models/todo_model.dart';
 
 class TodoRepositoryImpl implements TodoRepository {
@@ -39,7 +38,6 @@ class TodoRepositoryImpl implements TodoRepository {
   Future<Either<Failure, List<Todo>>> getListTodo() async {
     try {
       final List<TodoModel> listTodo = await todoDataSourceImpl.getListTodo();
-     
       return Right(listTodo);
     } on ServerException {
       return Left(ServerFailure());
