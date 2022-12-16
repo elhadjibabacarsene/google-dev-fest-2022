@@ -14,8 +14,6 @@ class TodoInitial extends TodoState {
 
 class TodoLoading extends TodoState {}
 
-class TodoDeleted extends TodoState {}
-
 class TodoAdded extends TodoState {}
 
 class TodoError extends TodoState {

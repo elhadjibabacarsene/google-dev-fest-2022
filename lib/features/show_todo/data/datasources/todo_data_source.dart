@@ -9,8 +9,6 @@ import '../../domain/entities/todo.dart';
 abstract class TodoDataSource {
   Future<List<Todo>> getListTodo();
   Future<int> createTodo(TodoModel todo);
-  // Future<Either<Failure, String>> deleteTodo(String id);
-  //Future<Either<Failure, String>> changeStatusTodo(String id);
 }
 
 class TodoDataSourceImpl implements TodoDataSource {
