@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:google_dev_fest/core/error/exceptions.dart';
 import 'package:google_dev_fest/core/error/failures.dart';
+import 'package:google_dev_fest/core/firebase_helper/firebase_db.dart';
 import 'package:google_dev_fest/features/show_todo/data/datasources/todo_data_source.dart';
 import 'package:google_dev_fest/features/show_todo/domain/entities/todo.dart';
 import 'package:google_dev_fest/features/show_todo/domain/repositories/todo_repository.dart';
@@ -8,9 +9,9 @@ import 'package:google_dev_fest/features/show_todo/domain/repositories/todo_repo
 import '../models/todo_model.dart';
 
 class TodoRepositoryImpl implements TodoRepository {
-  final TodoDataSource todoDataSource;
-
-  TodoRepositoryImpl({required this.todoDataSource});
+  //final TodoDataSource todoDataSource;
+  final TodoDataSourceImpl todoDataSourceImpl;
+  TodoRepositoryImpl({required this.todoDataSourceImpl});
 
   @override
   Future<Either<Failure, String>> changeStatusTodo(String id) {
@@ -19,9 +20,13 @@ class TodoRepositoryImpl implements TodoRepository {
   }
 
   @override
-  Future<Either<Failure, Todo>> createTodo(Todo todo) {
-    // TODO: implement createTodo
-    throw UnimplementedError();
+  Future<Either<Failure, Todo>> createTodo(TodoModel todo) async {
+    try {
+      await todoDataSourceImpl.createTodo(todo);
+      return Right(todo);
+    } catch (e) {
+      return Left(ServerFailure());
+    }
   }
 
   @override
@@ -33,8 +38,8 @@ class TodoRepositoryImpl implements TodoRepository {
   @override
   Future<Either<Failure, List<Todo>>> getListTodo() async {
     try {
-      // get data source todoList
-      final List<TodoModel> listTodo = await todoDataSource.getListTodo();
+      final List<TodoModel> listTodo = await todoDataSourceImpl.getListTodo();
+     
       return Right(listTodo);
     } on ServerException {
       return Left(ServerFailure());

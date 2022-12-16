@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:google_dev_fest/core/error/failures.dart';
 import 'package:google_dev_fest/core/usecases/usecases.dart';
+import 'package:google_dev_fest/features/show_todo/data/models/todo_model.dart';
 import 'package:google_dev_fest/features/show_todo/domain/entities/todo.dart';
 import 'package:google_dev_fest/features/show_todo/domain/repositories/todo_repository.dart';
 
@@ -17,7 +18,7 @@ class CreateTodo implements UseCases<Todo, Params> {
 }
 
 class Params extends Equatable {
-  final Todo todo;
+  final TodoModel todo;
 
   const Params({required this.todo});
 
