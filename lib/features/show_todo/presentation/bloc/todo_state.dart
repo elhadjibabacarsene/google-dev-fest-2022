@@ -33,3 +33,6 @@ class ListLoad extends TodoState {
   @override
   List<Object> get props => [listTodo];
 }
+
+class TodoIsDone extends TodoState {
+}

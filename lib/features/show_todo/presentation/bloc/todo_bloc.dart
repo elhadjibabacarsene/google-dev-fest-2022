@@ -6,6 +6,7 @@ import 'package:google_dev_fest/core/usecases/usecases.dart';
 import 'package:google_dev_fest/features/show_todo/domain/entities/todo.dart';
 import 'package:google_dev_fest/features/show_todo/domain/usecases/create_todo.dart';
 import 'package:google_dev_fest/features/show_todo/domain/usecases/get_list_todo.dart';
+import 'package:google_dev_fest/features/show_todo/domain/usecases/make_done_todo.dart';
 
 import '../../../../core/error/failures.dart';
 
@@ -16,6 +17,7 @@ part 'todo_state.dart';
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
   final GetListTodo getListTodo = GetListTodo();
   final CreateTodo createTodo = CreateTodo();
+  final MakeDoneTodo makeDoneTodo = MakeDoneTodo();
 
   TodoBloc() : super(TodoInitial()) {
     on<FetchListTodo>((event, emit) async {
@@ -46,6 +48,19 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
           (listTodo) => TodoAdded(),
         ),
       );
+    });
+
+    on<SetDoneTodo>((event, emit) async {
+      emit(TodoLoading());
+      final Either<Failure, void> failureOrDone = await makeDoneTodo(
+        MakeDoneTodoParam(id: event.id),
+      );
+      // check state
+      emit(failureOrDone.fold(
+        (failure) => TodoError(errorMessage: getErrorMessage(failure)),
+        (success) => TodoIsDone(),
+      ));
+      print(state);
     });
   }
 

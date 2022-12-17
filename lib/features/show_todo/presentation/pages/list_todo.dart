@@ -26,7 +26,7 @@ class ListTodo extends StatelessWidget {
       create: (BuildContext context) => sl<TodoBloc>()..add(FetchListTodo()),
       child: BlocListener<TodoBloc, TodoState>(
         listener: (context, state) {
-          if (state is TodoAdded) {
+          if (state is TodoAdded || state is TodoIsDone) {
             sl<TodoBloc>().add(FetchListTodo());
           }
         },
